@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const port = 3000
 
 const { PrismaClient } = require('@prisma/client')
-const { name } = require('ejs')
 const prisma = new PrismaClient()
 
 // use body parser middleware
