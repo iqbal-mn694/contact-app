@@ -25,13 +25,13 @@ model Contact {
 }
 
 model Label {
-  id            Int @id
+  id            Int @id @default(autoincrement())
   label_name    String
   contact       Contact[]
 }
 
 model Group {
-  id           Int @id
+  id           Int @id @default(autoincrement())
   group_name   String
   contact      Contact @relation(fields: [contactId], references: [id])
   contactId    Int   
