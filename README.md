@@ -7,7 +7,6 @@ Additional line of information text about what the project does. Your introducti
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
 * You have installed the latest version of `node.js`
 * You have installed database software
 
@@ -67,4 +66,4 @@ You might want to consider using something like the [All Contributors](https://g
 ## License
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license: [ISC](<link>).
