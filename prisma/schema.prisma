@@ -12,3 +12,27 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Contact {
+  id            Int @id @default(autoincrement())
+  name          String
+  number        Int
+  notes         String
+  profile_pict  String
+  label         Label? @relation(fields: [labelId], references: [id])
+  labelId       Int?
+  group         Group[]
+}
+
+model Label {
+  id            Int @id
+  label_name    String
+  contact       Contact[]
+}
+
+model Group {
+  id           Int @id
+  group_name   String
+  contact      Contact @relation(fields: [contactId], references: [id])
+  contactId    Int   
+}
