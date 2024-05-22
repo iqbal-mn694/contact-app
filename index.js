@@ -5,36 +5,33 @@ const bodyParser = require('body-parser')
 const port = 3000
 
 const { PrismaClient } = require('@prisma/client')
+const { name } = require('ejs')
 const prisma = new PrismaClient()
 
 // use body parser middleware
 app.use(bodyParser.urlencoded( { extended: true}));
 app.use(bodyParser.json())
 
+
+app.set('view engine', 'ejs')
+
 // contact
 app.get('/', async (req, res) => {
-    // const contact = await prisma.contact.create({
-    //     data: {
-    //         name: "Iqbal",
-    //         number: 23311,
-    //         notes: "lorem ipsum",
-    //         profile_pict: "haha",
-    //         label: {
-    //             create: {
-    //                 label_name: "default"
-    //             }
-    //         }
-    //     }
-    // })
     try {
-        const contact = await prisma.contact.findMany()
-        res.send(contact)
+        const contact = await prisma.contact.findMany({  
+            include: {
+                group: true,
+                label: true
+            },
+        })
+        // res.send(contact)
+        res.render('index', { data: contact })
     } catch (err) {
         res.send(err)        
     }
 })
 
-app.post('/add-contact', async (req, res) => {
+app.post('/contact/add-contact', async (req, res) => {
     try {
         const contact = await prisma.contact.create({
             data: {
@@ -61,7 +58,7 @@ app.post('/add-contact', async (req, res) => {
     }
 
 })
-
+// end contact
 
 // label
 app.post('/contact/add-label', async (req, res) => {
