@@ -25,6 +25,12 @@ Make migration contact-app, follow these steps:
 npx prisma migrate dev
 ```
 
+Make .env file in root folder
+
+```
+DATABASE_URL="mysql://root@localhost:<your mysql port>/contact"
+```
+
 ## Using contact-app
 
 To use contact-app, follow these steps:
@@ -35,7 +41,7 @@ npm start
 
 Add run commands and examples you think users will find useful. Provide an options reference for bonus points!
 
-## Contributing to <project_name>
+## Contributing to contact-app
 <!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
 To contribute to contact, follow these steps:
 
