@@ -23,14 +23,8 @@ Before you begin, ensure you have met the following requirements:
 
 To install contact-app, follow these steps:
 
-Linux and macOS:
 ```
-<install_command>
-```
-
-Windows:
-```
-<install_command>
+npm install
 ```
 ## Using contact-app
 

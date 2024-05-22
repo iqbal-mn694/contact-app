@@ -4,7 +4,8 @@
   "description": "<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here ---> ![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md) ![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md) ![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social) ![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social) ![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "body-parser": "^1.20.2",
     "express": "^4.19.2",
     "nodemon": "^3.1.0"
   }
