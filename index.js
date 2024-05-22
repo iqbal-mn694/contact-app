@@ -31,12 +31,17 @@ app.get('/', async (req, res) => {
     }
 })
 
+app.get('/contact/add-contact', (req, res) => {
+    res.render('addContact')
+
+})
+
 app.post('/contact/add-contact', async (req, res) => {
     try {
         const contact = await prisma.contact.create({
             data: {
                 name: req.body.name,
-                number: req.body.number,
+                number: parseInt(req.body.number),
                 notes: req.body.notes,
                 profile_pict: "haha.jpg",
                 label: {
@@ -54,7 +59,8 @@ app.post('/contact/add-contact', async (req, res) => {
 
         res.send('Sukses Menambahkan Kontak')
     } catch (err) {
-        res.send(req.body)
+        res.send(err)
+        // console.log(typeof(req.body.number))
     }
 
 })
@@ -70,7 +76,8 @@ app.post('/contact/add-label', async (req, res) => {
         })
         res.send("Sukses Menambahkan Label")
     } catch (err) {
-        res.send(err)        
+        // res.send(req.body)  
+        console.log(req.body)      
     }
 })
 
