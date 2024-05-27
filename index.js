@@ -122,7 +122,6 @@ app.post('/contact/add-contact', async (req, res) => {
     }
 
 })
-// end contact k,u
 
 // menampilkan form label
 app.get('/contact/add-label', async (req, res) => {
