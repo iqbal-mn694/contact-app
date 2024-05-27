@@ -67,6 +67,10 @@ app.get('/contact', async(req, res) => {
     }
 })
 
+app.get("/dashboard", async(req, res) => {
+    res.render('dashboard')
+})
+
 // untuk menampikan group yang telah dibuat user
 app.get("contact/group", async(req, res) => {
     try {

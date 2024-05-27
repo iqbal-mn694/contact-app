@@ -57,8 +57,8 @@ Alternatively see the GitHub documentation on [creating a pull request](https://
 Thanks to the following people who have contributed to this project:
 
 * [@iqbal-mn694](https://github.com/iqbal-mn694) 
-* [@Rigelyon](https://github.com/Rigelyon) 🐛
-* [@IPMan994](https://github.com/IPMan994) 🐛
+* [@Rigelyon](https://github.com/Rigelyon)
+* [@IPMan994](https://github.com/IPMan994)
 
 You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
 
