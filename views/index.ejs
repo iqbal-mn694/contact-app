@@ -69,7 +69,7 @@
     <!-- Sidebar section ends-->
     <script>
         // JavaScript to toggle the sidebar
-        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+        document.getElementById('sidebar-toggle').addEventListener('click', function () {
             const sidebar = document.getElementById('logo-sidebar');
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
@@ -77,15 +77,139 @@
                 sidebar.classList.add('-translate-x-full');
             }
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarLinks = {
+                'dashboard-link': 'dashboard-section',
+                'group-link': 'group-section',
+                'contact-link': 'contact-section',
+            };
+
+            // Function to show the selected section and hide others
+            function showSection(sectionId) {
+                for (const key in sidebarLinks) {
+                    const section = document.getElementById(sidebarLinks[key]);
+                    if (sidebarLinks[key] === sectionId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                }
+            }
+
+            // Add click event listeners to sidebar links
+            for (const linkId in sidebarLinks) {
+                document.getElementById(linkId).addEventListener('click', (event) => {
+                    event.preventDefault();
+                    showSection(sidebarLinks[linkId]);
+                });
+            }
+
+            // Initially show the dashboard section
+            showSection('dashboard-section');
+        });
     </script>
 
-    <div class="fixed flex sm:ml-64 right-0">
-        <div class="p-4 top-0 right-0 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="">
-
+<div id="content-wrapper" class="flex-auto w-full min-w-0 lg:static lg:max-h-full lg:overflow-visible">
+    <div id="dashboard-page" class="hidden">
+        <div
+            class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
+            <div class="flex items-center">
+                <h1
+                    class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                    Dashboard</h1>
+            </div>
+            <div class="flex items-center space-x-5">
+                <form class="max-w-md mx-auto">
+                    <label for="default-search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="default-search"
+                            class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search names" required />
+                        <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> -->
+                    </div>
+                </form>
+                <button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                        class="fa fa-sm fa-user-plus "></i> Add Contact</button>
             </div>
         </div>
     </div>
+
+    <div id="group-page" class="hidden">
+        <div
+            class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
+            <div class="flex items-center">
+                <h1
+                    class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                    Groups</h1>
+            </div>
+            <div class="flex items-center space-x-5">
+                <form class="max-w-md mx-auto">
+                    <label for="default-search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="default-search"
+                            class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search names" required />
+                        <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> -->
+                    </div>
+                </form>
+                <button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                        class="fa fa-sm fa-user-plus "></i> Add Contact</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="contact-page" class="hidden">
+        <div
+            class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
+            <div class="flex items-center">
+                <h1
+                    class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                    Contacts</h1>
+            </div>
+            <div class="flex items-center space-x-5">
+                <form class="max-w-md mx-auto">
+                    <label for="default-search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="default-search"
+                            class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search names" required />
+                        <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> -->
+                    </div>
+                </form>
+                <button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                        class="fa fa-sm fa-user-plus "></i> Add Contact</button>
+            </div>
+        </div>
+    </div>
+</div>
     
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
