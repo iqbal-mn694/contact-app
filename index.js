@@ -6,7 +6,6 @@ const cors = require('cors')
 const port = 3000
 
 const { PrismaClient } = require('@prisma/client')
-const { name } = require('ejs')
 const prisma = new PrismaClient()
 
 // use body parser middleware
@@ -33,6 +32,27 @@ app.get('/', async (req, res) => {
     }
 })
 
+// mengambil detail kontak dengan memasukkan id contact
+app.get('/contact/detail/:id', async (req, res) => {
+    try {
+        const contact = await prisma.contact.findFirst({
+            where: {
+                id: parseInt(req.params.id)
+            },
+
+             // melakukan join dengan tabel group dan label
+             include: {
+                label: true,
+                group: true
+            }   
+        })
+
+        res.send(contact)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 // melakukan pencarian kontak
 app.get('/contact', async(req, res) => {
     try {
@@ -54,7 +74,7 @@ app.get('/contact', async(req, res) => {
             ]
             },
             
-            // melakukan join dengan tabel group dan contact
+            // melakukan join dengan tabel group dan label
             include: {
                 label: true,
                 group: true
