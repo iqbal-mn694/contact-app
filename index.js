@@ -107,6 +107,10 @@ app.get('/contact/add-contact', (req, res) => {
 
 })
 
+app.get('/home', (req, res) => {
+    res.render('temporaryhome')
+
+})
 
 // menghandle data form contact yang dikirim user
 app.post('/contact/add-contact', async (req, res) => {
