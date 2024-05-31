@@ -1,17 +1,23 @@
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const path = require('path')
 
 const port = 3000
 
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const app = express()
+
+// image upload config
+const imageUploadConfig = require('./contact_modules/imageUploadConfig')
+
 // use body parser middleware
 app.use(bodyParser.urlencoded( { extended: true}));
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static('public'))
 
 
 app.set('view engine', 'ejs')
@@ -123,7 +129,7 @@ app.get('/home', async (req, res) => {
 })
 
 // menghandle data form contact yang dikirim user
-app.post('/contact/add-contact', async (req, res) => {
+app.post('/contact/add-contact', imageUploadConfig.single('image'), async (req, res) => {
     try {
         // melakukan insert ke tabel contact beserta valuenya
         const contact = await prisma.contact.create({
@@ -131,7 +137,7 @@ app.post('/contact/add-contact', async (req, res) => {
                 name: req.body.name,
                 number: parseInt(req.body.number), // konversi dari string ke integer
                 notes: req.body.notes,
-                profile_pict: "haha.jpg",
+                profile_pict: `Uploads/${req.file.filename}`,
 
                 // melakukan relasi ke tabel label dengan id label yang diselect
                 label: {
@@ -149,7 +155,7 @@ app.post('/contact/add-contact', async (req, res) => {
             }
         })
 
-        res.send('Sukses Menambahkan Kontak')
+        res.send("Sukses menambahkan kontak")
     } catch (err) {
         res.send(err)
         // console.log(typeof(req.body.number))
