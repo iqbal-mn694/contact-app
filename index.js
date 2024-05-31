@@ -107,9 +107,19 @@ app.get('/contact/add-contact', (req, res) => {
 
 })
 
-app.get('/home', (req, res) => {
-    res.render('temporaryhome')
-
+app.get('/home', async (req, res) => {
+    try {
+        const contact = await prisma.contact.findMany({  
+            include: {
+                group: true,
+                label: true
+            },
+        })
+        // res.send(contact)
+        res.render('temporaryhome', { data: contact })
+    } catch (err) {
+        res.send(err)        
+    }
 })
 
 // menghandle data form contact yang dikirim user

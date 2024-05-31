@@ -117,9 +117,10 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div id="card-container" class="p-4 top-0 right-0 sm:ml-64 right-0">
+                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 mb-4">
                     <!-- Card size are still temporary -->
-                    <div id="contact-card" class="w-30 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <% data.forEach((item)=>{ %>
+                    <div id="contact-card" class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-end px-4 pt-4">
                             <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
                                 <span class="sr-only">Open dropdown</span>
@@ -152,11 +153,12 @@
                                 <span class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Pink</span>
                             </div>
                             <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Foto Profile"/>
-                            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Nama Kontak</h5>
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Nomor</span><br>
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Catatan</span>
+                            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= item.name %></h5>
+                            <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.number %></span><br>
+                            <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.notes %></span>
                         </div>
                     </div>
+                    <% }) %>
                 </div>
             </div>
 
