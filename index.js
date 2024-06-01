@@ -75,7 +75,7 @@ app.get('/contact/detail/:id', async (req, res) => {
 })
 
 // melakukan pencarian kontak
-app.get('/contact', async(req, res) => {
+app.get('/contact/search', async(req, res) => {
     try {
         // untuk menampilkan data contact dari database
         const contact = await prisma.contact.findMany({
@@ -84,12 +84,12 @@ app.get('/contact', async(req, res) => {
                 OR: [
                     {
                     name: {
-                        startsWith: `\\_${req.query.nama}`,
+                        startsWith: `\\_${req.query.name}`,
                     }
                 },
                 {
                     name: {
-                        contains: req.query.nama
+                        contains: req.query.name
                     }
                 },
             ],
@@ -106,8 +106,21 @@ app.get('/contact', async(req, res) => {
                 group: true
             }            
         })
-        res.send(contact)
-        // res.render('index', { data: contact })
+
+        const trash = await prisma.contact.findMany({
+            where: {
+                deletedAt: {
+                    not: null
+                }
+            },
+    
+            include: {
+                group: true,
+                label: true
+            }
+        })
+        // res.send(contact)
+        res.render('index', { data: contact, trash })
     } catch (err) {
         res.send()        
     }
