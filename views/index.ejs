@@ -47,7 +47,7 @@
             <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                 <ul class="space-y-2 font-medium">
                     <li>
-                        <a href="#" id="dashboard-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 <a href="#" id="contact-link"
+                        <a href="#" id="contact-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 <a href="#" id="contact-link"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -70,17 +70,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="contact-link"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
-                            <!-- <span></span> untuk icon tempat sampah-->
+                        <a href="#" id="trash-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" 
+                            viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+                            <path d="M53.21 467c1.562 24.84 23.02 45 47.9 45h245.8c24.88 0 46.33-20.16 47.9-45L416 128H32L53.21 467zM432 32H320l-11.58-23.16c-2.709-5.42-8.25-8.844-14.31-8.844H153.9c-6.061 0-11.6 3.424-14.31 8.844L128 32H16c-8.836 0-16 7.162-16 16V80c0 8.836 7.164 16 16 16h416c8.838 0 16-7.164 16-16V48C448 39.16 440.8 32 432 32z"/>
+                        </svg>
                             <span class="flex-1 ms-3 whitespace-nowrap">Trash</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="setting-link"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
-                            <!-- <span></span> untuk icon setting-->
-                            <span class="flex-1 ms-3 whitespace-nowrap">Setting</span>
+                        <a href="#" id="blacklist-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" 
+                            viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+                            <path d="M24,0C10.745,0,0,10.745,0,24s10.745,24,24,24s24-10.745,24-24S37.255,0,24,0z M35,26h-5.375H26h-4h-3.167  H13v-4h5.042H22h4h3.709H35V26z"/>
+                        </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Blacklist</span>
                         </a>
                     </li>
                 </ul>
@@ -91,8 +95,8 @@
         <!-- Content section starts -->
         <div id="content-wrapper" class="flex-auto w-full min-w-0 lg:static lg:max-h-full lg:overflow-visible">
 
-            <!-- Dashboard -->
-            <div id="dashboard-section" class="hidden">
+            <!-- Contact -->
+            <div id="contact-section" class="hidden">
                 <div class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
                     <div class="flex items-center">
                         <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Contacts</h1>
@@ -164,13 +168,18 @@
                                                 </div>
                                                 <div class="col-span-2">
                                                     <label for="group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group</label>
-                                                    <input type="text" id="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type group name" name="group" required>
+                                                    <select id="label" name="label" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                                        <option value="1">Group 1</option>
+                                                        <option value="2">Group 2</option>
+                                                        <option value="3">Group 3</option>
+                                                    </select>
+                                                    <!-- <input type="text" id="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type group name" name="group" required> -->
                                                 </div>
                                                 <div class="col-span-2">
                                                     <label for="group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile</label>
-                                                    <input type="file" id="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" name="image" required>
+                                                    <input type="file" id="group" aria-describedby="user_avatar_help" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" name="image" required>
                                                 </div>
-                                                <div class="bg-blue-500 w-24 h-24">display uploaded foto</div>
+                                                <div class="mx-2 my-2 bg-blue-500 w-24 h-24">display uploaded foto</div>
                                             </div>
                                         </div>
                                         <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -188,7 +197,7 @@
                 <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 mb-4">
                     <!-- Card size are still temporary -->
                     <% data.forEach((item)=>{ %>
-                    <div id="contact-card" data-modal-target="small-modal-<%= item.id %>" data-modal-toggle="small-modal-<%= item.id %>" class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div id="contact-card" data-modal-target="small-modal-<%= item.id %>" data-modal-toggle="small-modal-<%= item.id %>" class="max-w-72 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-end px-4 pt-4">
                             <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
                                 <span class="sr-only">Open dropdown</span>
@@ -211,14 +220,9 @@
                         <div class="flex flex-col items-center pb-10">
                             <!-- Label in card -->
                             <div id="label-container" class="flex flex-row items-center flex-wrap gap-1 mx-6 mb-4 justify-center">
-                                <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Default</span>
-                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span>
-                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Red</span>
-                                <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Green</span>
-                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Yellow</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Indigo</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Purple</span>
-                                <span class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Pink</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Important</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Others</span>
+                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Dangerous</span>
                             </div>
                             <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="<%= item.profile_pict  %>" alt="Foto Profile"/>
                             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= item.name %></h5>
@@ -231,11 +235,11 @@
                     <div id="small-modal-<%= item.id %>" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full">
                             <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <div class="relative shrink bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                                        Detail Kontak
+                                        Contact Details
                                     </h3>
                                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="small-modal-<%= item.id %>">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -251,12 +255,18 @@
                                     <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.number %></span><br>
                                     <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.notes %></span>
                                 </div>
+                                <div class="buttons flex mt-4 justify-end">
+                                    <button class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-800" id="edit-button">Edit</button>
+                                    <a href="/contact/temp-delete/<%= item.id %>">
+                                        <button class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 focus:outline-none dark:focus:ring-red-700" id="delete-button">Delete</button>
+                                    </a>
+                                </div>
                             </div>
                             
                         </div>
                     </div>
-                    <% }) %>
                     <!-- End Detail Contact Model -->
+                    <% }) %>
                 </div>
             </div>
 
@@ -267,34 +277,7 @@
                         <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Groups</h1>
                     </div>
                     <div class="flex items-center space-x-5">
-                        <form class="max-w-md mx-auto">
-                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                </div>
-                                <input type="search" id="default-search" class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search names" required />
-                                <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> -->
-                            </div>
-                        </form>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
-                                class="fa fa-sm fa-user-plus "></i> Add Contact</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact -->
-            <div id="contact-section" class="hidden">
-                <div class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
-                    <div class="flex items-center">
-                        <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                            Contacts</h1>
-                    </div>
-                    <div class="flex items-center space-x-5">
-                        <form class="max-w-md mx-auto">
+                        <form class="max-w-md mx-auto" action="/contact/result">
                             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -304,26 +287,26 @@
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="default-search"
-                                    class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search names" required />
-                                <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> -->
+                                <input type="search" id="default-search" class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search names" name="name" required />
+                                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                             </div>
                         </form>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
-                                class="fa fa-sm fa-user-plus "></i> Add Contact</button>
+                        <button type="button" data-modal-target="add-group-modal" data-modal-toggle="add-group-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                                class="fa fa-sm fa-user-plus "></i> Add Group</button>
 
                         <!-- Start Modal Add -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Main modal -->
+                        <div id="add-group-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative w-full max-w-4xl max-h-full">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <!-- Modal header -->
                                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                            Add Contact
+                                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                                            Add Group
                                         </h3>
-                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="crud-modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                             </svg>
@@ -331,34 +314,14 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form class="p-4 md:p-5">
+                                    <form class="p-4 md:p-5" action="/contact/new" method="POST" enctype="multipart/form-data">
                                         <div class="grid gap-4 mb-4 grid-cols-2">
-                                            <div class="col-span-2">
-                                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
-                                            </div>
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                                <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-                                            </div>
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                                <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                    <option selected="">Select category</option>
-                                                    <option value="TV">TV/Monitors</option>
-                                                    <option value="PC">PC</option>
-                                                    <option value="GA">Gaming/Console</option>
-                                                    <option value="PH">Phones</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-span-2">
-                                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                                <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>                    
-                                            </div>
+                                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group Name</label>
+                                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type group name" required="">
                                         </div>
                                         <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                            Add new product
+                                            Add Group
                                         </button>
                                     </form>
                                 </div>
@@ -367,104 +330,179 @@
                         <!-- End Modal Add -->
                     </div>
                 </div>
-                <!-- Card -->
-                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 mb-4">
-                    <!-- Card size are still temporary -->
-                    <% trash.forEach((item)=>{ %>
-                    <div id="contact-card" data-modal-target="small-modal-<%= item.id %>" data-modal-toggle="small-modal-<%= item.id %>" class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex justify-end px-4 pt-4">
-                            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                                <span class="sr-only">Open dropdown</span>
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                    <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                                </svg>
+                <!-- Accordion grouping -->
+                <div id="accordion-container" class="p-4 top-0 sm:ml-64 right-0 gap-4 mb-4">
+                    <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                        <!-- Group 1 -->
+                        <h2 id="accordion-flush-heading-1">
+                            <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
+                            <span>Group Name 1</span>
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                            </svg>
                             </button>
-                            <!-- Dropdown menu in card -->
-                            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2" aria-labelledby="dropdownButton">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                </li>
-                                </ul>
+                        </h2>
+                        <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
+                            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                <!-- Card -->
+                                
+                                <div id="contact-card" class="max-w-72 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <div class="flex justify-end px-4 pt-4">
+                                        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                                            <span class="sr-only">Open dropdown</span>
+                                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+                                            </svg>
+                                        </button>
+                                        <!-- Dropdown menu in card -->
+                                        <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                            <ul class="py-2" aria-labelledby="dropdownButton">
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center pb-10">
+                                        <!-- Label in card -->
+                                        <div id="label-container" class="flex flex-row items-center flex-wrap gap-1 mx-6 mb-4 justify-center">
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Important</span>
+                                            <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Others</span>
+                                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Dangerous</span>
+                                        </div>
+                                        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="" alt="Foto Profile"/>
+                                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"></h5>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"></span><br>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"></span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Group 2 -->
+                        <h2 id="accordion-flush-heading-2">
+                            <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-2" aria-expanded="true" aria-controls="accordion-flush-body-2">
+                            <span>Group Name 2</span>
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                            </svg>
+                            </button>
+                        </h2>
+                        <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
+                            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                <!-- Cards in here -->
+                            </div>
+                        </div>
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trash -->
+            <div id="trash-section" class="hidden">
+                <div class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
+                    <div class="flex items-center">
+                        <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Trash</h1>
+                    </div>
+                    <div class="flex items-center space-x-5">
+                        <form class="max-w-md mx-auto" action="/contact/result">
+                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="default-search" class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search names" name="name" required />
+                                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Card -->
+                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 gap-4 mb-4">
+                    <% trash.forEach((item)=>{ %>
+                    <div id="contact-card" data-modal-target="small-modal-<%= item.id %>" data-modal-toggle="small-modal-<%= item.id %>" class="max-w-72 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-end px-4 pt-4">
                         </div>
                         <div class="flex flex-col items-center pb-10">
                             <!-- Label in card -->
                             <div id="label-container" class="flex flex-row items-center flex-wrap gap-1 mx-6 mb-4 justify-center">
-                                <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Default</span>
-                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span>
-                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Red</span>
-                                <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Green</span>
-                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Yellow</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Indigo</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Purple</span>
-                                <span class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Pink</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Important</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Others</span>
+                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Dangerous</span>
                             </div>
                             <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="<%= item.profile_pict  %>" alt="Foto Profile"/>
                             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= item.name %></h5>
                             <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.number %></span><br>
                             <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.notes %></span>
                         </div>
-                    </div>
-
-                     <!-- Start Detail Contact Modal -->
-                    <div id="small-modal-<%= item.id %>" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative w-full max-w-md max-h-full">
-                            <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <!-- Modal header -->
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                                        Detail Kontak
-                                    </h3>
-                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="small-modal-<%= item.id %>">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-4 md:p-5 space-y-4">
-                                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="<%= item.profile_pict  %>" alt="Foto Profile"/>
-                                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= item.name %></h5>
-                                    <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.number %></span><br>
-                                    <span class="text-sm text-gray-500 dark:text-gray-400"><%= item.notes %></span>
-                                </div>
-                            </div>
-                            
+                        <div class="buttons flex mt-4 justify-center">
+                            <a href="/contact/restore/<%= item.id %>">
+                                <button class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-800" id="edit-button">Restore</button>
+                            </a>
+                            <a href="/contact/permanently-delete/<%= item.id %>">
+                                <button class="text-white text-xs bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 focus:outline-none dark:focus:ring-red-700" id="delete-button">Delete Permanently</button>
+                            </a>
                         </div>
                     </div>
                     <% }) %>
-                    <!-- End Detail Contact Model -->
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Contact -->
-            <div id="setting-section" class="hidden">
+            <!-- Blacklist -->
+            <div id="blacklist-section" class="hidden">
                 <div class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
                     <div class="flex items-center">
-                        <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                            Setting</h1>
+                        <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Blacklist</h1>
+                    </div>
+                    <div class="flex items-center space-x-5">
+                        <form class="max-w-md mx-auto" action="/contact/result">
+                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="default-search" class="block w-60 self-center h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search names" name="name" required />
+                                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Card -->
-                <!-- Card -->
-                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 mb-4">
-                    <!-- Card size are still temporary -->
-                    <div id="contact-card" class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                       d
-                    </div>
-
+                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 gap-4 mb-4">
+                    <div id="contact-card" class="max-w-72 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-end px-4 pt-4">
+                        </div>
+                        <div class="flex flex-col items-center pb-10">
+                            <!-- Label in card -->
+                            <div id="label-container" class="flex flex-row items-center flex-wrap gap-1 mx-6 mb-4 justify-center">
+                                <span class="bg-gray-200 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">Blacklist</span>
+                            </div>
+                            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="" alt="Foto Profile"/>
+                            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">bebas123</h5>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">bebas123</span><br>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">bebas</span>
+                        </div>
+                        <div class="buttons flex mt-4 justify-center">
+                            <button class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-800" id="edit-button">Whitelist</button>
+                            <button class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 focus:outline-none dark:focus:ring-red-700" id="delete-button">Delete</button>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
         <!-- Content section ends -->
@@ -481,10 +519,10 @@
             });
             document.addEventListener('DOMContentLoaded', () => {
                 const sidebarLinks = {
-                    'dashboard-link': 'dashboard-section',
-                    'group-link': 'group-section',
                     'contact-link': 'contact-section',
-                    'setting-link': 'setting-section',
+                    'group-link': 'group-section',
+                    'trash-link': 'trash-section',
+                    'blacklist-link': 'blacklist-section',
                 };
 
                 // Function to show the selected section and hide others
@@ -507,8 +545,8 @@
                     });
                 }
 
-                // Initially show the dashboard section
-                showSection('dashboard-section');
+                // Initially show the contact section
+                showSection('contact-section');
             });
         </script>
 

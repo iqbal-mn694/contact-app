@@ -188,11 +188,24 @@ app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => 
 })
 
 // melakukan penghapusan sementara dengsn menggunakan teknik soft delete
-app.post('/contact/temp-delete/:id', async(req, res) => {
+app.get('/contact/temp-delete/:id', async(req, res) => {
     const remove = await prisma.contact.update({
           where: { id: parseInt(req.params.id) },
           data: { deletedAt: new Date()}
         });
+    
+    if(remove) res.redirect('/')
+})
+
+// melakukan penghapusan permanen
+app.get('/contact/permanently-delete/:id', async(req, res) => {
+    const deleteContact = await prisma.contact.delete({
+        where: { 
+            id: parseInt(req.params.id)
+        }
+    })
+
+    if(deleteContact) res.redirect('/')
 })
 
 
@@ -242,6 +255,8 @@ app.get('contact/restore', async (req, res) => {
             deletedAt: null
         }
     })
+
+    if(restore) res.redirect('/')
 })
 
 
