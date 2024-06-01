@@ -25,14 +25,29 @@ app.set('view engine', 'ejs')
 // contact
 app.get('/', async (req, res) => {
     try {
-        const contact = await prisma.contact.findMany({  
+        const contact = await prisma.contact.findMany({ 
+            where: {
+                deletedAt: null
+            },
             include: {
                 group: true,
                 label: true
             },
         })
+        const trash = await prisma.contact.findMany({
+            where: {
+                deletedAt: {
+                    not: null
+                }
+            },
+    
+            include: {
+                group: true,
+                label: true
+            }
+        })
         // res.send(contact)
-        res.render('index', { data: contact })
+        res.render('index', { data: contact , trash})
     } catch (err) {
         res.send(err)        
     }
@@ -76,6 +91,11 @@ app.get('/contact', async(req, res) => {
                     name: {
                         contains: req.query.nama
                     }
+                },
+            ],
+            AND: [
+                { 
+                    deletedAt: null
                 }
             ]
             },
@@ -93,6 +113,64 @@ app.get('/contact', async(req, res) => {
     }
 })
 
+// menampilkan form kontak
+app.get('/contact/add-contact', (req, res) => {
+    res.render('addContact')
+
+})
+
+// melakukan penghapusan sementara dengsn menggunakan teknik soft delete
+app.post('/contact/temp-delete/:id', async(req, res) => {
+    const remove = await prisma.contact.update({
+          where: { id: parseInt(req.params.id) },
+          data: { deletedAt: new Date()}
+        });
+})
+
+// tempah sampah
+app.get('/contact/trash', async(req, res) => {
+    const trash = await prisma.contact.findMany({
+        where: {
+            deletedAt: {
+                not: null
+            }
+        },
+
+        include: {
+            group: true,
+            label: true
+        }
+    })
+
+    res.send(trash)
+})
+
+// restore specific contact
+app.get('/contact/restore/:id', async (req, res) => {
+    const restoreSpecific = await prisma.contact.update({
+        where: { 
+            id: parseInt(req.params.id)
+        },
+        data: {
+            deletedAt: null 
+        }
+    })
+})
+
+// restore all contact
+app.get('contact/restore', async (req, res) => {
+    const restore = await prisma.contact.updateMany({
+        where: {
+            deletedAt: {
+                not: null
+            }
+        },
+        data: {
+            deletedAt: null
+        }
+    })
+})
+
 // untuk menampikan group yang telah dibuat user
 app.get("contact/group", async(req, res) => {
     try {
@@ -107,11 +185,6 @@ app.get("contact/group", async(req, res) => {
     }
 })
 
-// menampilkan form kontak
-app.get('/contact/add-contact', (req, res) => {
-    res.render('addContact')
-
-})
 
 app.get('/home', async (req, res) => {
     try {

@@ -22,17 +22,20 @@ model Contact {
   label         Label? @relation(fields: [labelId], references: [id])
   labelId       Int?
   group         Group[]
+  deletedAt     DateTime?
 }
 
 model Label {
   id            Int @id @default(autoincrement())
   label_name    String
   contact       Contact[]
+  deletedAt     DateTime?
 }
 
 model Group {
   id           Int @id @default(autoincrement())
   group_name   String
   contact      Contact @relation(fields: [contactId], references: [id])
-  contactId    Int   
+  contactId    Int
+  deletedAt    DateTime?
 }
