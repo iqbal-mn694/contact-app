@@ -22,7 +22,10 @@ app.use(express.static('public'))
 
 app.set('view engine', 'ejs')
 
-// contact
+/** 
+ * Contact Endpoint
+ * Create, Read, Update, Destroy(CRUD)
+ */
 app.get('/', async (req, res) => {
     try {
         const contact = await prisma.contact.findMany({ 
@@ -53,6 +56,23 @@ app.get('/', async (req, res) => {
     }
 })
 
+// temporary
+app.get('/home', async (req, res) => {
+    try {
+        const contact = await prisma.contact.findMany({  
+            include: {
+                group: true,
+                label: true
+            },
+        })
+        // res.send(contact)
+        res.render('temporaryhome', { data: contact })
+    } catch (err) {
+        res.send(err)        
+    }
+})
+
+
 // mengambil detail kontak dengan memasukkan id contact
 app.get('/contact/detail/:id', async (req, res) => {
     try {
@@ -75,7 +95,7 @@ app.get('/contact/detail/:id', async (req, res) => {
 })
 
 // melakukan pencarian kontak
-app.get('/contact/search', async(req, res) => {
+app.get('/contact/result', async(req, res) => {
     try {
         // untuk menampilkan data contact dari database
         const contact = await prisma.contact.findMany({
@@ -127,8 +147,43 @@ app.get('/contact/search', async(req, res) => {
 })
 
 // menampilkan form kontak
-app.get('/contact/add-contact', (req, res) => {
+app.get('/contact/new', (req, res) => {
     res.render('addContact')
+
+})
+
+// menghandle data form contact yang dikirim user
+app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => {
+    try {
+        // melakukan insert ke tabel contact beserta valuenya
+        const contact = await prisma.contact.create({
+            data: {
+                name: req.body.name,
+                number: parseInt(req.body.number), // konversi dari string ke integer
+                notes: req.body.notes,
+                profile_pict: `Uploads/${req.file.filename}`,
+
+                // melakukan relasi ke tabel label dengan id label yang diselect
+                label: {
+                    connect: {
+                        id: 3
+                    }
+                },
+
+                // melakukan join tabel grup dengan tabel contact kemudian melakukan tambah grup berdasar inputan user
+                group: {
+                    create: {
+                        group_name: req.body.group
+                    }
+                }
+            }
+        })
+
+        res.send("Sukses menambahkan kontak")
+    } catch (err) {
+        res.send(err)
+        // console.log(typeof(req.body.number))
+    }
 
 })
 
@@ -140,6 +195,11 @@ app.post('/contact/temp-delete/:id', async(req, res) => {
         });
 })
 
+
+/** 
+ * Contact Endpoint
+ * Recycle Bin Operator
+ */
 // tempah sampah
 app.get('/contact/trash', async(req, res) => {
     const trash = await prisma.contact.findMany({
@@ -184,6 +244,11 @@ app.get('contact/restore', async (req, res) => {
     })
 })
 
+
+/** 
+ * Contact Endpoint
+ * Contact Group
+ */
 // untuk menampikan group yang telah dibuat user
 app.get("contact/group", async(req, res) => {
     try {
@@ -198,56 +263,6 @@ app.get("contact/group", async(req, res) => {
     }
 })
 
-
-app.get('/home', async (req, res) => {
-    try {
-        const contact = await prisma.contact.findMany({  
-            include: {
-                group: true,
-                label: true
-            },
-        })
-        // res.send(contact)
-        res.render('temporaryhome', { data: contact })
-    } catch (err) {
-        res.send(err)        
-    }
-})
-
-// menghandle data form contact yang dikirim user
-app.post('/contact/add-contact', imageUploadConfig.single('image'), async (req, res) => {
-    try {
-        // melakukan insert ke tabel contact beserta valuenya
-        const contact = await prisma.contact.create({
-            data: {
-                name: req.body.name,
-                number: parseInt(req.body.number), // konversi dari string ke integer
-                notes: req.body.notes,
-                profile_pict: `Uploads/${req.file.filename}`,
-
-                // melakukan relasi ke tabel label dengan id label yang diselect
-                label: {
-                    connect: {
-                        id: 3
-                    }
-                },
-
-                // melakukan join tabel grup dengan tabel contact kemudian melakukan tambah grup berdasar inputan user
-                group: {
-                    create: {
-                        group_name: req.body.group
-                    }
-                }
-            }
-        })
-
-        res.send("Sukses menambahkan kontak")
-    } catch (err) {
-        res.send(err)
-        // console.log(typeof(req.body.number))
-    }
-
-})
 
 // menampilkan form label
 app.get('/contact/add-label', async (req, res) => {

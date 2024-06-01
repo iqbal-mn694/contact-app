@@ -76,6 +76,13 @@
                             <span class="flex-1 ms-3 whitespace-nowrap">Trash</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="#" id="setting-link"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700 group">
+                            <!-- <span></span> untuk icon setting-->
+                            <span class="flex-1 ms-3 whitespace-nowrap">Setting</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </aside>
@@ -91,7 +98,7 @@
                         <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Contacts</h1>
                     </div>
                     <div class="flex items-center space-x-5">
-                        <form class="max-w-md mx-auto" action="/contact/search">
+                        <form class="max-w-md mx-auto" action="/contact/result">
                             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -128,7 +135,7 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form class="p-4 md:p-5" action="/contact/add-contact" method="POST" enctype="multipart/form-data">
+                                    <form class="p-4 md:p-5" action="/contact/new" method="POST" enctype="multipart/form-data">
                                         <div class="grid gap-4 mb-4 grid-cols-2">
                                             <div class="col-span-1">
                                                 <div class="col-span-2">
@@ -437,6 +444,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Contact -->
+            <div id="setting-section" class="hidden">
+                <div class="flex items-center justify-between p-4 space-x-5 top-0 right-0 mt-14 sm:ml-64 right-0 w-auto h-auto">
+                    <div class="flex items-center">
+                        <h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                            Setting</h1>
+                    </div>
+                </div>
+                <!-- Card -->
+                <!-- Card -->
+                <div id="card-container" class="p-4 top-0 sm:ml-64 right-0 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 mb-4">
+                    <!-- Card size are still temporary -->
+                    <div id="contact-card" class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                       d
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
         <!-- Content section ends -->
 
@@ -455,6 +484,7 @@
                     'dashboard-link': 'dashboard-section',
                     'group-link': 'group-section',
                     'contact-link': 'contact-section',
+                    'setting-link': 'setting-section',
                 };
 
                 // Function to show the selected section and hide others
