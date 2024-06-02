@@ -49,8 +49,13 @@ app.get('/', async (req, res) => {
                 label: true
             }
         })
+
+        const group = await prisma.group.findMany({
+            // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
+            distinct: ['group_name'] 
+        })
         // res.send(contact)
-        res.render('index', { data: contact , trash})
+        res.render('index', { data: contact , trash ,group})
     } catch (err) {
         res.send(err)        
     }
@@ -139,8 +144,14 @@ app.get('/contact/result', async(req, res) => {
                 label: true
             }
         })
+
+        const group = await prisma.group.findMany({
+            // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
+            distinct: ['group_name'] 
+        })
+        
         // res.send(contact)
-        res.render('index', { data: contact, trash })
+        res.render('index', { data: contact, trash, group })
     } catch (err) {
         res.send()        
     }
