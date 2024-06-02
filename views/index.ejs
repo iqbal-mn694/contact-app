@@ -417,52 +417,29 @@
                 <div id="accordion-container" class="p-4 top-0 sm:ml-64 right-0 gap-4 mb-4">
                     <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                         <!-- Group 1 -->
-                        <% group.forEach((item)=>{ %>
+                        <% group.forEach((itemGroup)=>{ %>
                         <h2 id="accordion-flush-heading-1">
-                            <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
-                            <span><%= item.group_name %></span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                            </svg>
-                            </button>
+                                <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
+                                <span><%= itemGroup.group_name %></span>
+                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                </svg>
+                                </button>
                         </h2>
                         <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
                             <div class="py-5 border-b border-gray-200 dark:border-gray-700">
                                 <!-- Card -->
                                 
-                                <div id="contact-card" class="max-w-72 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <div class="flex justify-end px-4 pt-4">
-                                        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                                            <span class="sr-only">Open dropdown</span>
-                                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                                            </svg>
-                                        </button>
-                                        <!-- Dropdown menu in card -->
-                                        <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                            <ul class="py-2" aria-labelledby="dropdownButton">
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                            </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-center pb-10">
-                                        <!-- Label in card -->
-                                        <div id="label-container" class="flex flex-row items-center flex-wrap gap-1 mx-6 mb-4 justify-center">
-                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Important</span>
-                                            <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Others</span>
-                                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Dangerous</span>
-                                        </div>
-                                        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="" alt="Foto Profile"/>
-                                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"></h5>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400"></span><br>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400"></span>
-                                    </div>
-                                </div>
+                               
+                                <% data.forEach(item => { %>
+                                    <% let containsValue = item.group.some(group => group.group_name === itemGroup.group_name) %>
+                                    <% if(containsValue) { %>
+                                        <% console.log(item.) %>
+                                    <% } %>
+                                <% }) %>
+                                
+                               
+    
                             </div>
                         </div>
                         <% }) %>

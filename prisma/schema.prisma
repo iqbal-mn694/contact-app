@@ -22,6 +22,7 @@ model Contact {
   label         Label? @relation(fields: [labelId], references: [id], onDelete: SetNull)
   labelId       Int?
   group         Group[]
+  blacklist     Blacklist[]
   deletedAt     DateTime?
 }
 
@@ -38,4 +39,11 @@ model Group {
   contact      Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
   contactId    Int
   deletedAt    DateTime?
+}
+
+model Blacklist {
+  id           Int @id @default(autoincrement())
+  blacklist    Boolean?
+  contact      Contact @relation(fields: [contactId], references: [id])
+  contactId    Int
 }

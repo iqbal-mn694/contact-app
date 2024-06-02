@@ -61,14 +61,45 @@ app.get('/', async (req, res) => {
             }
         })
 
+        // display group 
         const group = await prisma.group.findMany({
             // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
             distinct: ['group_name'] 
+        }) 
+
+        // filter group
+        const filteredGroup = await prisma.contact.findMany({ 
+            where: {
+                deletedAt: null
+            },
+            include: {
+                group: {
+                    where: {
+                        group_name: req.query.group
+                    }
+                },
+                label: true
+            },
         })
+
+
         // res.send(contact)
         let success = req.flash('success')
         let error = req.flash('error')
-        res.render('index', { data: contact , trash ,group, success, error})
+
+        const data = {
+            data : contact,
+            trash,
+            group,
+            success,
+            error,
+            filteredGroup
+        }
+
+        res.render('index', data)
+        // if(data.group.find(group => group.group_name === 'wndjwnd')) {
+        //     res.send("oke")
+        // }
     } catch (err) {
         res.send(err)        
     }
@@ -119,6 +150,7 @@ app.get('/contact/detail/:id', async (req, res) => {
 })
 
 // melakukan pencarian kontak
+// bug
 app.get('/contact/result', async(req, res) => {
     try {
         // untuk menampilkan data contact dari database
@@ -169,12 +201,25 @@ app.get('/contact/result', async(req, res) => {
             distinct: ['group_name'] 
         })
         
+
+        let success = req.flash('success')
+        let error = req.flash('error')
+
+        const data = {
+            data : contact,
+            trash,
+            group,
+            success,
+            error,
+            filteredGroup
+        }
         // res.send(contact)
         res.render('index', { data: contact, trash, group })
     } catch (err) {
         res.send()        
     }
 })
+
 
 // menampilkan form kontak
 app.get('/contact/new', (req, res) => {
@@ -192,6 +237,45 @@ app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => 
                 number: parseInt(req.body.number), // konversi dari string ke integer
                 notes: req.body.notes,
                 profile_pict: `Uploads/${req.file.filename}`,
+
+                // melakukan relasi ke tabel label dengan id label yang diselect
+                label: {
+                    connect: {
+                        id: 3
+                    }
+                },
+
+                // melakukan join tabel grup dengan tabel contact kemudian melakukan tambah grup berdasar inputan user
+                group: {
+                    create: {
+                        group_name: req.body.group
+                    }
+                }
+            }
+        })
+
+        // req.session.message = { success: 'Contact has been added succesfully' };
+        req.flash('success', 'Contact has been added succesfully')
+        res.redirect('/')
+    } catch (err) {
+        req.flash('error', 'Something went wrong')
+        res.redirect('/')
+    }
+
+})
+
+app.post('/contact/update/:id', async (req, res) => {
+    try {
+        // melakukan update ke tabel contact beserta valuenya
+        const contact = await prisma.contact.update({
+            where: {
+                id: req.params.id
+            },
+            data: {
+                name: req.body.name,
+                number: parseInt(req.body.number), // konversi dari string ke integer
+                notes: req.body.notes,
+                profile_pict: "default",
 
                 // melakukan relasi ke tabel label dengan id label yang diselect
                 label: {
