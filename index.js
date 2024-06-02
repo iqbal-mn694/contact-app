@@ -1,7 +1,7 @@
-const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const path = require('path')
+const express = require('express')
+const flash = require('connect-flash')
 
 const port = 3000
 
@@ -12,12 +12,23 @@ const app = express()
 
 // image upload config
 const imageUploadConfig = require('./contact_modules/imageUploadConfig')
+const session = require('express-session')
 
 // use body parser middleware
 app.use(bodyParser.urlencoded( { extended: true}));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static('public'))
+
+app.use(flash())
+
+// session for flash message
+app.use(session({
+    secret: 'flashmessage',
+    saveUninitialized: true,
+    resave: true
+}))
+
 
 
 app.set('view engine', 'ejs')
@@ -55,7 +66,9 @@ app.get('/', async (req, res) => {
             distinct: ['group_name'] 
         })
         // res.send(contact)
-        res.render('index', { data: contact , trash ,group})
+        let success = req.flash('success')
+        let error = req.flash('error')
+        res.render('index', { data: contact , trash ,group, success, error})
     } catch (err) {
         res.send(err)        
     }
@@ -63,18 +76,24 @@ app.get('/', async (req, res) => {
 
 // temporary
 app.get('/home', async (req, res) => {
-    try {
-        const contact = await prisma.contact.findMany({  
-            include: {
-                group: true,
-                label: true
-            },
-        })
-        // res.send(contact)
-        res.render('temporaryhome', { data: contact })
-    } catch (err) {
-        res.send(err)        
-    }
+    // try {
+    //     const contact = await prisma.contact.findMany({  
+    //         include: {
+    //             group: true,
+    //             label: true
+    //         },
+    //     })
+    //     // res.send(contact)
+    //     res.render('temporaryhome', { data: contact })
+    // } catch (err) {
+    //     res.send(err)        
+    // }
+    req.flash('message', 'success')
+    res.redirect('/flash')
+})
+
+app.get('/flash', (req, res) => {
+    res.send(req.flash('success'))
 })
 
 
@@ -190,33 +209,52 @@ app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => 
             }
         })
 
-        res.send("Sukses menambahkan kontak")
+        // req.session.message = { success: 'Contact has been added succesfully' };
+        req.flash('success', 'Contact has been added succesfully')
+        res.redirect('/')
     } catch (err) {
-        res.send(err)
-        // console.log(typeof(req.body.number))
+        req.flash('error', 'Something went wrong')
+        res.redirect('/')
     }
 
 })
 
 // melakukan penghapusan sementara dengsn menggunakan teknik soft delete
 app.get('/contact/temp-delete/:id', async(req, res) => {
-    const remove = await prisma.contact.update({
-          where: { id: parseInt(req.params.id) },
-          data: { deletedAt: new Date()}
-        });
+    try {
+        const remove = await prisma.contact.update({
+              where: { id: parseInt(req.params.id) },
+              data: { deletedAt: new Date()}
+            });
+
+        req.flash('success', 'Contact has been moved to bin')
+        res.redirect('/')
+    } catch (err) {
+        req.flash('error', 'Something went wrong')
+        res.redirect('/')
+
+    }
     
-    if(remove) res.redirect('/')
+    
 })
 
 // melakukan penghapusan permanen
 app.get('/contact/permanently-delete/:id', async(req, res) => {
-    const deleteContact = await prisma.contact.delete({
-        where: { 
-            id: parseInt(req.params.id)
-        }
-    })
+    try {
+        const deleteContact = await prisma.contact.delete({
+            where: { 
+                id: parseInt(req.params.id)
+            }
+        })
 
-    if(deleteContact) res.redirect('/')
+        req.flash('success', 'Contact has been deleted permanenently')
+        res.redirect('/')
+    } catch (err) {
+        // req.flash('error', 'Something went wrong')
+        // res.redirect('/')
+        console.log(err)
+
+    }
 })
 
 
@@ -244,28 +282,44 @@ app.get('/contact/trash', async(req, res) => {
 
 // restore specific contact
 app.get('/contact/restore/:id', async (req, res) => {
-    const restoreSpecific = await prisma.contact.update({
-        where: { 
-            id: parseInt(req.params.id)
-        },
-        data: {
-            deletedAt: null 
-        }
-    })
+    try {
+        const restoreSpecific = await prisma.contact.update({
+            where: { 
+                id: parseInt(req.params.id)
+            },
+            data: {
+                deletedAt: null 
+            }
+        })
+
+        req.flash('success', 'Contact has been restored')
+        res.redirect('/')
+    } catch {
+        req.flash('error', 'Something went wrong')
+        res.redirect('/')
+    }
 })
 
 // restore all contact
 app.get('contact/restore', async (req, res) => {
-    const restore = await prisma.contact.updateMany({
-        where: {
-            deletedAt: {
-                not: null
+    try {
+        const restore = await prisma.contact.updateMany({
+            where: {
+                deletedAt: {
+                    not: null
+                }
+            },
+            data: {
+                deletedAt: null
             }
-        },
-        data: {
-            deletedAt: null
-        }
-    })
+        })
+
+        req.flash('success', 'All Contact has been restored')
+        res.redirect('/')
+    } catch {
+        req.flash('error', 'Something went wrong')
+        res.redirect('/')
+    }
 
     if(restore) res.redirect('/')
 })
