@@ -16,23 +16,28 @@ datasource db {
 model Contact {
   id            Int @id @default(autoincrement())
   name          String
-  number        Int
+  number        String
   notes         String
   profile_pict  String
-  label         Label? @relation(fields: [labelId], references: [id])
+  label         Label? @relation(fields: [labelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   labelId       Int?
   group         Group[]
+  blacklist     Boolean @default(false)
+  deletedAt     DateTime?
 }
 
 model Label {
-  id            Int @id
+  id            Int @id @default(autoincrement())
   label_name    String
   contact       Contact[]
+  deletedAt     DateTime?
 }
 
 model Group {
-  id           Int @id
+  id           Int @id @default(autoincrement())
   group_name   String
-  contact      Contact @relation(fields: [contactId], references: [id])
-  contactId    Int   
+  contact      Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull, onUpdate: Cascade )
+  contactId    Int?
+  deletedAt    DateTime?
 }
+

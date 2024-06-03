@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here ---> ![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md) ![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md) ![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social) ![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social) ![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social)",
   "main": "index.js",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
@@ -16,7 +19,15 @@
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "tailwind": "^4.0.0"
   }
 }
