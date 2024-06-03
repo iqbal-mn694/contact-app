@@ -39,15 +39,23 @@ app.set('view engine', 'ejs')
  */
 app.get('/', async (req, res) => {
     try {
+
+        // menampilkan semua kontak
         const contact = await prisma.contact.findMany({ 
             where: {
-                deletedAt: null
+                AND: [
+                    { deletedAt: null },
+                    { blacklist: false }
+                ],
             },
+
             include: {
                 group: true,
-                label: true
+                label: true,
             },
         })
+
+        // menampilkan semua sampah
         const trash = await prisma.contact.findMany({
             where: {
                 deletedAt: {
@@ -57,17 +65,17 @@ app.get('/', async (req, res) => {
     
             include: {
                 group: true,
-                label: true
+                label: true,
             }
         })
 
-        // display group 
+        // menampilkan semua grup
         const group = await prisma.group.findMany({
             // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
             distinct: ['group_name'] 
         }) 
 
-        // filter group
+        // menampilkan kontak berdasarkan grup
         const filteredGroup = await prisma.contact.findMany({ 
             where: {
                 deletedAt: null
@@ -82,75 +90,88 @@ app.get('/', async (req, res) => {
             },
         })
 
+        // menampilkan kontak yang diblacklist
+        const blacklist = await prisma.contact.findMany({
+           where: {
+                AND: [
+                    {
+                        deletedAt: null
+                    },
+                    {
+                        blacklist: true
+                    }
+                    
+                ],
+            },
+            include: {
+                label: true,
+                group: true
+            }
+        })
 
-        // res.send(contact)
+        // menampilkan label
+        const label = await prisma.label.findMany()
+
+        // menampilkan pesan error
         let success = req.flash('success')
         let error = req.flash('error')
 
+        // menyimpan  semua data dalam variabel untuk dikirimkan ke views/halaman home
         const data = {
             data : contact,
             trash,
             group,
             success,
             error,
-            filteredGroup
+            filteredGroup,
+            label,
+            blacklist
         }
 
         res.render('index', data)
-        // if(data.group.find(group => group.group_name === 'wndjwnd')) {
-        //     res.send("oke")
-        // }
     } catch (err) {
-        res.send(err)        
+        res.send("Error meload website")      
     }
 })
 
-// temporary
-app.get('/home', async (req, res) => {
-    // try {
-    //     const contact = await prisma.contact.findMany({  
-    //         include: {
-    //             group: true,
-    //             label: true
-    //         },
-    //     })
-    //     // res.send(contact)
-    //     res.render('temporaryhome', { data: contact })
-    // } catch (err) {
-    //     res.send(err)        
-    // }
-    req.flash('message', 'success')
-    res.redirect('/flash')
+// blacklist
+app.get('/contact/blacklist/:id', async (req, res) => {
+    const blacklist = await prisma.contact.update({
+        where: {
+            id: parseInt(req.params.id)
+        },
+        data: {
+            blacklist: true,
+        },
+
+        include: {
+            label: true,
+            group: true
+        }
+    })
+    req.flash('success', 'Contact has been added to blacklist')
+    
 })
 
-app.get('/flash', (req, res) => {
+app.get('/contact/whitelist/:id', async (req, res) => {
+    const blacklist = await prisma.contact.update({
+        where: {
+            id: parseInt(req.params.id)
+        },
+        data: {
+            blacklist: false,
+        },
+
+        include: {
+            label: true,
+            group: true
+        }
+    })
     res.send(req.flash('success'))
 })
 
 
-// mengambil detail kontak dengan memasukkan id contact
-app.get('/contact/detail/:id', async (req, res) => {
-    try {
-        const contact = await prisma.contact.findFirst({
-            where: {
-                id: parseInt(req.params.id)
-            },
-
-             // melakukan join dengan tabel group dan label
-             include: {
-                label: true,
-                group: true
-            }   
-        })
-
-        res.send(contact)
-    } catch (err) {
-        res.send(err)
-    }
-})
-
 // melakukan pencarian kontak
-// bug
 app.get('/contact/result', async(req, res) => {
     try {
         // untuk menampilkan data contact dari database
@@ -200,6 +221,23 @@ app.get('/contact/result', async(req, res) => {
             // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
             distinct: ['group_name'] 
         })
+
+          // filter group
+          const filteredGroup = await prisma.contact.findMany({ 
+            where: {
+                deletedAt: null
+            },
+            include: {
+                group: {
+                    where: {
+                        group_name: req.query.group
+                    }
+                },
+                label: true
+            },
+        })
+
+        const label = await prisma.label.findMany()
         
 
         let success = req.flash('success')
@@ -211,12 +249,13 @@ app.get('/contact/result', async(req, res) => {
             group,
             success,
             error,
-            filteredGroup
+            filteredGroup,
+            label
         }
-        // res.send(contact)
-        res.render('index', { data: contact, trash, group })
+        // res.send(data)
+        res.render('index', data)
     } catch (err) {
-        res.send()        
+        console.log(err)     
     }
 })
 
@@ -234,21 +273,21 @@ app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => 
         const contact = await prisma.contact.create({
             data: {
                 name: req.body.name,
-                number: parseInt(req.body.number), // konversi dari string ke integer
+                number: req.body.number,
                 notes: req.body.notes,
                 profile_pict: `Uploads/${req.file.filename}`,
 
                 // melakukan relasi ke tabel label dengan id label yang diselect
                 label: {
                     connect: {
-                        id: 3
+                        id: parseInt(req.body.label)
                     }
                 },
-
-                // melakukan join tabel grup dengan tabel contact kemudian melakukan tambah grup berdasar inputan user
+                
+                // melakukan relasi ke tabel group dengan id group yang diselect
                 group: {
-                    create: {
-                        group_name: req.body.group
+                    connect: {
+                        id: parseInt(req.body.group)
                     }
                 }
             }
@@ -258,8 +297,9 @@ app.post('/contact/new', imageUploadConfig.single('image'), async (req, res) => 
         req.flash('success', 'Contact has been added succesfully')
         res.redirect('/')
     } catch (err) {
-        req.flash('error', 'Something went wrong')
-        res.redirect('/')
+        console.log(err)
+        // req.flash('error', 'Something went wrong')
+        // res.redirect('/')
     }
 
 })
@@ -269,22 +309,22 @@ app.post('/contact/update/:id', async (req, res) => {
         // melakukan update ke tabel contact beserta valuenya
         const contact = await prisma.contact.update({
             where: {
-                id: req.params.id
+                id: parseInt(req.params.id)
             },
             data: {
                 name: req.body.name,
                 number: parseInt(req.body.number), // konversi dari string ke integer
                 notes: req.body.notes,
-                profile_pict: "default",
+                profile_pict: `Uploads/${req.file.filename ? req.file.filename : "Uploads/default.jpg" }`,
 
                 // melakukan relasi ke tabel label dengan id label yang diselect
                 label: {
                     connect: {
-                        id: 3
+                        id: parseInt(req.body.label)
                     }
                 },
 
-                // melakukan join tabel grup dengan tabel contact kemudian melakukan tambah grup berdasar inputan user
+                // melakukan relasi ke tabel group dengan id group yang diselect
                 group: {
                     create: {
                         group_name: req.body.group
@@ -294,11 +334,12 @@ app.post('/contact/update/:id', async (req, res) => {
         })
 
         // req.session.message = { success: 'Contact has been added succesfully' };
-        req.flash('success', 'Contact has been added succesfully')
+        req.flash('success', 'Contact has been edited succesfully')
         res.redirect('/')
     } catch (err) {
-        req.flash('error', 'Something went wrong')
-        res.redirect('/')
+        console.log(err)
+        // req.flash('error', 'Something went wrong')
+        // res.redirect('/')
     }
 
 })
@@ -309,7 +350,7 @@ app.get('/contact/temp-delete/:id', async(req, res) => {
         const remove = await prisma.contact.update({
               where: { id: parseInt(req.params.id) },
               data: { deletedAt: new Date()}
-            });
+        });
 
         req.flash('success', 'Contact has been moved to bin')
         res.redirect('/')
@@ -334,9 +375,7 @@ app.get('/contact/permanently-delete/:id', async(req, res) => {
         req.flash('success', 'Contact has been deleted permanenently')
         res.redirect('/')
     } catch (err) {
-        // req.flash('error', 'Something went wrong')
-        // res.redirect('/')
-        console.log(err)
+        res.send("error")
 
     }
 })
@@ -346,24 +385,6 @@ app.get('/contact/permanently-delete/:id', async(req, res) => {
  * Contact Endpoint
  * Recycle Bin Operator
  */
-// tempah sampah
-app.get('/contact/trash', async(req, res) => {
-    const trash = await prisma.contact.findMany({
-        where: {
-            deletedAt: {
-                not: null
-            }
-        },
-
-        include: {
-            group: true,
-            label: true
-        }
-    })
-
-    res.send(trash)
-})
-
 // restore specific contact
 app.get('/contact/restore/:id', async (req, res) => {
     try {
@@ -413,20 +434,6 @@ app.get('contact/restore', async (req, res) => {
  * Contact Endpoint
  * Contact Group
  */
-// untuk menampikan group yang telah dibuat user
-app.get("contact/group", async(req, res) => {
-    try {
-        const contact = await prisma.group.findMany({
-            // menampilkan hanya satu jenis grup jika terdapat grup yang duplikat  
-            distinct: ['group_name'] 
-        })
-        res.send(contact)
-        // res.render('index', { data: contact })
-    } catch (err) {
-        res.send(err)        
-    }
-})
-
 
 // menampilkan form label
 app.get('/contact/add-label', async (req, res) => {
@@ -445,6 +452,22 @@ app.post('/contact/add-label', async (req, res) => {
     } catch (err) {
         // res.send(req.body)  
         console.log(req.body)      
+    }
+})
+
+app.post('/contact/group/new', async (req, res) => {
+    try {
+        const group = await prisma.group.create({
+            data: {
+                group_name: req.body.group
+            }
+        })
+        
+        req.flash('success', 'Group has been added succesfully')
+        res.redirect('/')
+    } catch (err) {
+        res.send(err)  
+        // console.log(req.body)      
     }
 })
 
